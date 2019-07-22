@@ -1,0 +1,26 @@
+{
+  "PORT": {
+    "type": "number",
+    "required": true,
+    "allowedValues": [
+      3000,
+      4001,
+      9001
+    ]
+  },
+  "HOST": {
+    "type": "String",
+    "required": ""
+  },
+  "LOG_LEVEL": {
+    "type": "String",
+    "required": "no",
+    "defaultValue": "info",
+    "allowedValues": [
+      "debug",
+      "info",
+      "verbose",
+      "warning"
+    ]
+  }
+}

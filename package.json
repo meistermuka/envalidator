@@ -1,0 +1,11 @@
+{
+  "name": "envalidator",
+  "version": "0.0.0",
+  "description": "ENV variable validator",
+  "main": "index.js",
+  "author": "Mukandila Mukandila",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^8.0.0"
+  }
+}
