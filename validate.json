@@ -10,11 +10,11 @@
   },
   "HOST": {
     "type": "String",
-    "required": ""
+    "required": "yes"
   },
   "LOG_LEVEL": {
     "type": "String",
-    "required": "no",
+    "required": 0,
     "defaultValue": "info",
     "allowedValues": [
       "debug",

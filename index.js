@@ -1,6 +1,8 @@
 const fs = require('fs');
 const dotenv = require('dotenv');
 
+const invalidRequiredError = new Error('Invalid required value');
+
 function start() {
 
     const config = dotenv.parse(fs.readFileSync('./.env'));
@@ -15,14 +17,38 @@ function start() {
             console.log(`${configKey} not included in .env file`)
         }
         //console.log(`${configKey} : ${Object.entries(validatorObj[configKey])}`);
-        console.log(`${configKey} - required: ${typeof validatorObj[configKey]['required']}`);
-        console.log(`${configKey} - validating required: ${validateRequired(validatorObj[configKey]['required'])}`);
+        //console.log(`${configKey} - required: ${typeof validatorObj[configKey]['required']}`);
+        //console.log(`${configKey} - validating required: ${validateRequired(validatorObj[configKey]['required'])}`);
+        if (validateRequired(validatorObj[configKey]['required'])) {
+            const type = validatorObj[configKey]['type'];
+
+            if (type === 'boolean') {
+                
+            } else if (type === 'number') {
+                try {
+                    parseInt(config[configKey]);
+                } catch (err) {
+                    throw new Error(err);
+                }
+            } else if (type === 'string') {
+                
+            }
+        }
     }
 
     //console.log(JSON.stringify(validatorObj, null, 2));
+
+    // 1) check if required
+    // 2) check type matches
+    // 3) check defaultValue (optional)
+    // 4) check allowedValues (optional)
 }
 
 start();
+
+function validateType(type) {
+
+}
 
 function validateRequired(requiredValue) {
 
@@ -36,10 +62,10 @@ function validateRequired(requiredValue) {
             } else if (lowered === 'no') {
                 return false;
             } else {
-                return console.log('Invalid required value');
+                throw invalidRequiredError;
             }
         } else {
-            return console.log('Invalid required value');
+            throw invalidRequiredError;
         }
     } else if (typeof requiredValue === 'number') {
         if (requiredValue === 1) {
@@ -47,10 +73,10 @@ function validateRequired(requiredValue) {
         } else if (requiredValue === 0) {
             return false;
         } else {
-            throw new Error('Invalid required value');
+            throw invalidRequiredError;
         }
     } else {
-        console.log('This is not a valid required value')
+        throw invalidRequiredError;
     }
     //const acceptedValues = [true, false, 1, 0, 'yes', 'no'];
 }
